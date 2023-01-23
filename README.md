@@ -120,14 +120,14 @@ Ensure the Swag Labs standard_user are able to:
 5. Able to see an overview about my order (qty, name, description, unit price, payment information, shipping information, item total price, tax, total price)
 6. Able to see a confirmation page
 
-## Test Cases
+# Test Cases
 Section where the different test cases of the challenge will be defined.
 
-## How to Run the Tests
+# How to Run the Tests
 Section where the necessary instructions to run the tests will be added
 
-## Git Commands
+# Git Commands
 Section to add the git commands used during the challenge
 
-## Problems
+# Problems
 Section to write down problems you have encountered during the challenge
