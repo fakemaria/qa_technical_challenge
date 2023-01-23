@@ -6,12 +6,12 @@ You will have to create a fork of this repository on which you will work. Once y
 
 ## Goals
 Given some user stories witch their acceptance criterias:
- 1. Write the test cases in the README.md file, Test Cases section.
+ 1. Write the test cases in the README.md file, [Test Cases](#test-cases) section.
  2. Create a project using YARN.
  3. Install Cypress using YARN.
- 4. Implement in Cypress as many tests as test cases have been defined to be validated automatically. Upload to your fork all the code structure needed to run the tests as well as the instructions so that they can be easily executed (write the instructions on the README.md file, How to Run the Tests section).
- 5. Write the git commands used during the challenge in the README.md file, Git Commands section.
- 6. Write down the problems you have encountered during the challenge in the README.md file, Problems section.
+ 4. Implement in Cypress as many tests as test cases have been defined to be validated automatically. Upload to your fork all the code structure needed to run the tests as well as the instructions so that they can be easily executed (write the instructions on the README.md file, [How to Run the Tests](#how-to-run-the-tests) section).
+ 5. Write the git commands used during the challenge in the README.md file, [Git Commands](#git-commands) section.
+ 6. Write down the problems you have encountered during the challenge in the README.md file, [Problems](#problems) section.
 
 # Challenge
 ## User Story 1
