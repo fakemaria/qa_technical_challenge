@@ -1,0 +1,9 @@
+install yarn via npm (https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable)
+npm install --global yarn
+
+installing cypress via yarnº
+once in the directory, 
+yarn add cypress --dev
+
+open cypress
+yarn run cypress open
