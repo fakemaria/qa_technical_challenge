@@ -1,11 +1,53 @@
 class ProductsPage {
-    addToCart(productName) {
-      //cy.contains(productName).find('.inventory_item_description').find('.btn_primary').click();
-        cy.contains(productName).parent().find('a').click();
-        cy.get('.btn_primary').click();
-        cy.get('.shopping_cart_badge').should('exist')
-        cy.get('[data-test="back-to-products"]').click();
-        cy.location("pathname").should("equal", "/inventory.html");
+    
+    componentsProductsPage = {
+      menu: ()  => cy.get('[id="react-burger-menu-btn"]'),
+      logOut: ()  => cy.get('[id="logout_sidebar_link"]'),
+      buttonAddToCart: () => cy.get ('.btn_primary'),
+      shoppingCartBadge: () => cy.get('.shopping_cart_badge'),
+      backToProducts: () => cy.get('[data-test="back-to-products"]'),
+      //product: () => cy.contains(productName).parent().find('a')
+    }
+    
+    logOut() {
+      this.componentsProductsPage.menu().click();
+      this.componentsProductsPage.logOut().click();
+    }
+
+    addToCartFromProduct() {
+      this.getProducts().then(($products) => {
+          $products.each((index, element) => {
+            const productName = Cypress.$(element).text().trim();
+            this.getProducts().contains(productName).click();
+            this.componentsProductsPage.buttonAddToCart().click();
+            this.componentsProductsPage.shoppingCartBadge().should('exist');
+            this.componentsProductsPage.backToProducts().click();
+            cy.location("pathname").should("equal", "/inventory.html");
+          })
+      })
+    }
+    
+    addToCartFromHomePage() {
+      const allproducts = [];
+        this.getProducts().then(($products) => {
+            $products.each((index, element) => {
+              const productName = Cypress.$(element).text().trim();
+              cy.contains(productName).parentsUntil("[class='inventory_item']").find('.btn_primary').click();
+              cy.location("pathname").should("equal", "/inventory.html");
+              allproducts.push(productName);
+            })
+        })
+    }
+
+    navigateToProduct() {
+      this.getProducts().then(($products) => {
+          $products.each((index, element) => {
+            const productName = Cypress.$(element).text().trim();
+            cy.contains(productName).parent().find('a').click();
+            this.componentsProductsPage.backToProducts().click();
+            cy.location("pathname").should("equal", "/inventory.html");
+        })
+      })
     }
   
     removeFromCart(productName) {
@@ -21,16 +63,11 @@ class ProductsPage {
   
       cy.get('.cart_footer .btn_secondary').click(); 
     }
+    
     getProducts() {
       return cy.get('.inventory_item_name'); 
     }
   
-    addProductToCart(productName) {
-      this.getProducts().contains(productName).click();
-        cy.get('.btn_primary').click();
-        cy.get('.shopping_cart_badge').should('exist')
-        cy.get('[data-test="back-to-products"]').click();
-        cy.location("pathname").should("equal", "/inventory.html");
-    }
+    
   }
   module.exports = new ProductsPage();
