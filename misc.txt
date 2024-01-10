@@ -7,3 +7,7 @@ yarn add cypress --dev
 
 open cypress
 yarn run cypress open
+
+
+-- cypress api docs
+https://docs.cypress.io/api/commands/get

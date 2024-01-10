@@ -7,7 +7,7 @@ describe('As a Swag Labs standard_user, I need to open the products detail page 
         loginPage.login("standard_user", "secret_sauce");
     });
 
-    it("User Story 2: standard_userr can log in and navigate through all products", () => {
+    it("User Story 2: standard_user can log in and navigate through all products", () => {
         productsPage.navigateToProduct();
     });
 
@@ -22,7 +22,25 @@ describe('As a Swag Labs standard_user, I need to open the products detail page 
     });
 
     it('User Story 4: standard_user can review previously added items to the cart and remove them', () => {
+        let remove = true;
+        productsPage.addToCartFromHomePage(remove);
+        productsPage.addToCartFromProduct(remove);
+        productsPage.addToCartFromHomePage();
+        productsPage.navigateToShoppingCart();
+        productsPage.removeFromCart();
         
+
+    });
+
+    ////////////////////
+      
+    it('User Story 5: standard_user can sort products', () => {
+        productsPage.sortProducts();
+    });
+    
+    it('User Story 6: standard_user can reset app status' , () => {
+        productsPage.addToCartFromHomePage();
+        productsPage.resetAppStatus();
     });
 
     afterEach(() => {
@@ -30,16 +48,14 @@ describe('As a Swag Labs standard_user, I need to open the products detail page 
     });
 });
 
-// ## User Story 4
-// As a Swag Labs standard_user, I need to review my previous added to cart products in the Swag Labs ordering platform so that I can remove it
 
-// ## Acceptance Criterias 4
+// ## User Story 7
+// As a Swag Labs standard_user, I need to see the product information in the product page and product details page in the Swag Labs ordering platform so that I can know what I'm buying
+
+// ## Acceptance Criterias 7
 // Ensure the Swag Labs standard_user are able to:
 // 1. Log in to Swag Labs
 // 2. Navigate in the Products page
-// 3. Able to add to cart product(s) to buy
-// 3. Able to remove product(s)
+// 3. Able to see all the product information (image, title, description, price)
 // 4. Navigate into the Products details page
-// 5. Able to remove product(s)
-// 6. Navigate into the shopping cart
-// 7. Able to remove product(s)
+// 5. Able to see all the product information (image, title, description, price)
