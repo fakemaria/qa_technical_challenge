@@ -137,7 +137,29 @@ class ProductsPage {
       cy.get('.cart_footer .btn_secondary').click(); 
     }
     
-    
+    getAllProducts() {
+      // Get all product elements on the page
+      
+      return cy.get('.inventory_item').then(products => {
+        // Extract details for each product
+        const productDetailsArray = products.map((index, product) => {
+          const title = Cypress.$(product).find('.inventory_item_name').text();
+          const description = Cypress.$(product).find('.inventory_item_desc').text();
+          const price = Cypress.$(product).find('.inventory_item_price').text();
+          const imageUrl = Cypress.$(product).find('a > .inventory_item_img').attr("src");
+  
+          return {
+            title,
+            description,
+            price,
+            imageUrl,
+          };
+        });
+        // Convert the array-like object to a standard array
+        console.log(Cypress.$.makeArray(productDetailsArray));
+        return Cypress.$.makeArray(productDetailsArray);
+      });
+    }
   
     
   }

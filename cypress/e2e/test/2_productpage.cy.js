@@ -43,45 +43,43 @@ describe('As a Swag Labs standard_user, I need to open the products detail page 
         productsPage.resetAppStatus();
     });
 
-    it.only('User Story 7', () => {
-        const allproducts = [];
-        const eachproduct = [];
-        cy.get('.inventory_item').then(($products) => {
-            $products.each((index, product) => {
-                //const producName = Cypress.$(element).text().trim();
-                allproducts.push(Cypress.$(product).find('.inventory_item_name').text().trim());
-                allproducts.push(Cypress.$(product).find('.inventory_item_desc').text());
-                allproducts.push(Cypress.$(product).find('.inventory_item_price').text());
-                //allproducts.push(Cypress.$(product).find('.inventory_item_img').attr('src'));
-                Cypress.$(product).find('.inventory_item_name').click();
-            })    
-                cy.get('.inventory_details_name').should('contain.text',allproducts[0]);
-                cy.get('.inventory_details_desc').should('contain.text',allproducts[1]);
-                cy.get('.inventory_details_price').should('contain.text',allproducts[2]);
-                productsPage.componentsProductsPage.backToProducts().click();
-        })
-    // Get details for all products on the landing page
-    // productsPage.getAllProducts().then(allProductsDetails => {
-    //     // Iterate through each product and click on it
-    //     allProductsDetails.forEach(product => {
-    //       cy.contains('.inventory_item_name', product.title).click();
+    it('User Story 7', () => {
+        // Get details for all products on the landing page
+        productsPage.getAllProducts().then(allProductsDetails => {
+        // Iterate through each product and click on it
+        allProductsDetails.forEach(product => {
+          cy.contains('.inventory_item_name', product.title).click();
   
-    //       // Capture product details from the opened product page
-    //       const openedProductDetails = {
-    //         title: cy.get('.inventory_details_name').text(),
-    //         description: cy.get('.inventory_details_desc').text(),
-    //         price: cy.get('.inventory_details_price').text(),
-    //         imageUrl: cy.get('.inventory_details_img').attr('src'),
-    //       };
+        // Capture product details from the opened product page
+        const openedProductDetails = {
+            title: '',
+            description: '',
+            price: '',
+            imageUrl:''
+          };
   
-    //       // Compare details
-    //       expect(openedProductDetails).to.deep.equal(product);
+          // Use cy.get().invoke() to handle the promise and retrieve the text (otherwise is not working properly)
+          cy.get('.inventory_details_name').invoke('text').then(text => {
+            openedProductDetails.title = text.trim();
+          });
   
-    //       // Navigate back to the products page
-    //       cy.go('back');
-    //     });
-    //   });
+          cy.get('.inventory_details_desc').invoke('text').then(text => {
+            openedProductDetails.description = text.trim();
+          });
+  
+          cy.get('.inventory_details_price').invoke('text').then(text => {
+            openedProductDetails.price = text.trim();
+          });
+          cy.get('.inventory_details_img').invoke('attr','src').then(src => {
+            openedProductDetails.imageUrl = src.trim();
+          });
+          // Compare objects
+          cy.wrap(openedProductDetails).should('deep.equal', product);
           
+  
+          cy.go('back');
+        });
+      });
     });
 
     afterEach(() => {
@@ -90,13 +88,15 @@ describe('As a Swag Labs standard_user, I need to open the products detail page 
 });
 
 
-// ## User Story 7
-// As a Swag Labs standard_user, I need to see the product information in the product page and product details page in the Swag Labs ordering platform so that I can know what I'm buying
+// ## User Story 8
+// As a Swag Labs standard_user, I need to see the shopping cart with the number of products added in the Swag Labs ordering platform so that I can to know the status of the same
 
-// ## Acceptance Criterias 7
+// ## Acceptance Criterias 8
 // Ensure the Swag Labs standard_user are able to:
 // 1. Log in to Swag Labs
 // 2. Navigate in the Products page
-// 3. Able to see all the product information (image, title, description, price)
+// 3. Able to see the shopping cart with the number of products added
 // 4. Navigate into the Products details page
-// 5. Able to see all the product information (image, title, description, price)
+// 5. Able to see the shopping cart with the number of products added
+// 6. Navigate into the shopping cart
+// 7. Able to see the shopping cart with the number of products added
