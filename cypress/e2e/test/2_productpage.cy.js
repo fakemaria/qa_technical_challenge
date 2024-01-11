@@ -43,6 +43,47 @@ describe('As a Swag Labs standard_user, I need to open the products detail page 
         productsPage.resetAppStatus();
     });
 
+    it.only('User Story 7', () => {
+        const allproducts = [];
+        const eachproduct = [];
+        cy.get('.inventory_item').then(($products) => {
+            $products.each((index, product) => {
+                //const producName = Cypress.$(element).text().trim();
+                allproducts.push(Cypress.$(product).find('.inventory_item_name').text().trim());
+                allproducts.push(Cypress.$(product).find('.inventory_item_desc').text());
+                allproducts.push(Cypress.$(product).find('.inventory_item_price').text());
+                //allproducts.push(Cypress.$(product).find('.inventory_item_img').attr('src'));
+                Cypress.$(product).find('.inventory_item_name').click();
+            })    
+                cy.get('.inventory_details_name').should('contain.text',allproducts[0]);
+                cy.get('.inventory_details_desc').should('contain.text',allproducts[1]);
+                cy.get('.inventory_details_price').should('contain.text',allproducts[2]);
+                productsPage.componentsProductsPage.backToProducts().click();
+        })
+    // Get details for all products on the landing page
+    // productsPage.getAllProducts().then(allProductsDetails => {
+    //     // Iterate through each product and click on it
+    //     allProductsDetails.forEach(product => {
+    //       cy.contains('.inventory_item_name', product.title).click();
+  
+    //       // Capture product details from the opened product page
+    //       const openedProductDetails = {
+    //         title: cy.get('.inventory_details_name').text(),
+    //         description: cy.get('.inventory_details_desc').text(),
+    //         price: cy.get('.inventory_details_price').text(),
+    //         imageUrl: cy.get('.inventory_details_img').attr('src'),
+    //       };
+  
+    //       // Compare details
+    //       expect(openedProductDetails).to.deep.equal(product);
+  
+    //       // Navigate back to the products page
+    //       cy.go('back');
+    //     });
+    //   });
+          
+    });
+
     afterEach(() => {
         productsPage.logOut();
     });
