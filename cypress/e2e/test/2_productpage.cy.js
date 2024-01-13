@@ -6,19 +6,19 @@ describe('As a Swag Labs standard_user, I need to open the products detail page 
         loginPage.login("standard_user", "secret_sauce");
     });
 
-    it("User Story 2: standard_user can log in and navigate through all products", () => {
+    it("US 2, TC 5: standard_user can log in and navigate through all products", () => {
         productsPage.navigateToProduct();
     });
 
-    it("User Story 3_1: standard_user can add to cart products from each description", () => {
+    it("US 3, TC 6: standard_user can add to cart products from each description", () => {
         productsPage.addToCartFromProduct();
     });
 
-    it("User Story 3_2: standard_user can add to cart products from landing page", () => {
+    it("US 3, TC 7: standard_user can add to cart products from landing page", () => {
         productsPage.addToCartFromHomePage();
     });
 
-    it('User Story 4: standard_user can review previously added items to the cart and remove them', () => {
+    it('US 4, TC 8: standard_user can review previously added items to the cart and remove them', () => {
         let remove = true;
         productsPage.addToCartFromHomePage(remove);
         productsPage.addToCartFromProduct(remove);

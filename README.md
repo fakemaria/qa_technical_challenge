@@ -125,10 +125,68 @@ Ensure the Swag Labs standard_user are able to:
 6. Able to see a confirmation page
 
 # Test Cases
-Section where the different test cases of the challenge will be defined.
+User Story 1: Log in in Swag Labs
+
+TC1: 
+    Given the standar_user  
+    When typing the username and password in Swag Labs login page
+    And clicking on Login button
+    Then I can log in 
+    And I can log out
+TC2: 
+    Given the locked_out user  
+    When typing the username and password in Swag Labs login page
+    And clicking on Login button
+    Then a validation is raised with the string "Epic sadface: Sorry, this user has been locked out."
+TC3:
+    Given the problem_user  
+    When typing the username and password in Swag Labs login page
+    And clicking on Login button
+    Then I can log in 
+    And I can log out
+TC4:
+    Given the performance_glitch_user  
+    When typing the username and password in Swag Labs login page
+    And clicking on Login button
+    Then I can log in 
+    And I can log out
+
+User Story 2: Open the products and get the information
+
+TC5: 
+    Given I am logged in Swag Labs as standard_user
+    When I click on every item on the page
+    Then I can access it owns details
+    And I can return back to the landing page
+
+User Story 3: Add products to cart
+
+TC6:
+    Given I am logged in Swag Labs as standard_user
+    When I click on add to cart from products page
+    Then items are added to the cart
+    And shopping cart badge has a value
+    And button has changed from "Add to cart" to "Remove" 
+
+TC7:
+    Given I am logged in Swag Labs as standard_user
+    When I click on add to cart from each Product details page of each item
+    Then items are added to the cart
+    And shopping cart badge has a value
+    And button has changed from "Add to cart" to "Remove" 
+
+User Story 4: Review products added to the cart and able to remove them
+
+TC 8: pending to write that
+    Given I am logged in Swag Labs as standard_user
+    When I click on add to cart from each Product details page of each item
+    Then items are added to the cart
+    And shopping cart badge has a value
+    And button has changed from "Add to cart" to "Remove" 
+
 
 # How to Run the Tests
-Section where the necessary instructions to run the tests will be added
+yarn run cypress run -> to run the whole suite
 
 # Git Commands
 Section to add the git commands used during the challenge
