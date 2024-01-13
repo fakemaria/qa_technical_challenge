@@ -10,6 +10,10 @@ class ProductsPage {
       shoppingCartBadge: () => cy.get('.shopping_cart_badge'),
       shoppingCart: () => cy.get('[class="shopping_cart_link"]'),
       backToProducts: () => cy.get('[data-test="back-to-products"]'),
+      inventoryDetailsName: () => cy.get('.inventory_details_name').invoke('text'),
+      inventoryDetailsDescription: () => cy.get('.inventory_details_desc').invoke('text'),
+      inventoryDetailsPrice: () => cy.get('.inventory_details_price').invoke('text'),
+      inventoryDetailsImageUrl: () => cy.get('.inventory_details_img').invoke('attr','src'),
       //product: () => cy.contains(productName).parent().find('a')
     }
     
@@ -50,8 +54,10 @@ class ProductsPage {
     //review constant allproducts
     addToCartFromHomePage(remove) {
       const allproducts = [];
+      
         this.getProducts().then(($products) => {
             $products.each((index, element) => {
+              //Cypress.$(element).find('.inventory_item_price').text().toString(); ///????????????????????
               const productName = Cypress.$(element).text().trim();
               cy.contains(productName).parentsUntil("[class='inventory_item']").find('.btn_primary').click();
               cy.location("pathname").should("equal", "/inventory.html");
@@ -62,14 +68,18 @@ class ProductsPage {
         })
     }
 
-    navigateToProduct() {
+    navigateToProduct(first) {
       this.getProducts().then(($products) => {
+          
+        if (first) cy.get(Cypress.$.makeArray($products)[0]).click();
+        else {
           $products.each((index, element) => {
             const productName = Cypress.$(element).text().trim();
             cy.contains(productName).parent().find('a').click();
             this.componentsProductsPage.backToProducts().click();
             cy.location("pathname").should("equal", "/inventory.html");
-        })
+          })
+        }
       })
     }
 
@@ -102,7 +112,7 @@ class ProductsPage {
       this.componentsProductsPage.shoppingCart().click();
       cy.location("pathname").should("equal", "/cart.html");
     }
-
+    
     //refactor into the method
     selectSortOption(option) {
       cy.get('.product_sort_container').select(option);
@@ -116,8 +126,32 @@ class ProductsPage {
     getProducts() {
       return cy.get('.inventory_item_name'); 
     }
+    //this and next one to be moved to checkout or erased    
+    retrieveSumPrices(){
+      return this.getAllProductsPrices().then(allProductPrices => {
+        const totalPrice = allProductPrices.reduce((acc, price) => acc + price, 0);
+        console.log(totalPrice);
+        return parseInt(totalPrice);
+      });
+      
+    }
 
-    //move to cart_page 
+    getAllProductsPrices() {
+      // Get all product elements on the page
+      return cy.get('.cart_item').then(products => {
+        // Extract prices for each product
+        const productPricesArray = products.map((index, product) => {
+          const price = Cypress.$(product).find('.inventory_item_price').text();
+          return parseFloat(price.replace('$', '')); // Convert to a numeric value
+        });
+  
+        // Convert the array-like object to a standard array
+        return Cypress.$.makeArray(productPricesArray);
+        });
+      }
+    
+
+    //move to cart_page ???? 
     removeFromCart() {
       this.getProducts().then(($products) => {
         $products.each((index, element) => {
@@ -126,41 +160,38 @@ class ProductsPage {
         })
       })
     }
-    //move to cart_page
-    compareCart(items) {
-      cy.get('.shopping_cart_badge').click();
-  
-      items.forEach(item => {
-        cy.get('.cart_item').should('contain.text', item);
-      });
-  
-      cy.get('.cart_footer .btn_secondary').click(); 
-    }
     
     getAllProducts() {
-      // Get all product elements on the page
-      
       return cy.get('.inventory_item').then(products => {
-        // Extract details for each product
         const productDetailsArray = products.map((index, product) => {
           const title = Cypress.$(product).find('.inventory_item_name').text();
           const description = Cypress.$(product).find('.inventory_item_desc').text();
           const price = Cypress.$(product).find('.inventory_item_price').text();
           const imageUrl = Cypress.$(product).find('a > .inventory_item_img').attr("src");
-  
-          return {
-            title,
-            description,
-            price,
-            imageUrl,
-          };
+          
+          return {title,description,price,imageUrl};
         });
         // Convert the array-like object to a standard array
-        console.log(Cypress.$.makeArray(productDetailsArray));
+        //console.log(Cypress.$.makeArray(productDetailsArray));
         return Cypress.$.makeArray(productDetailsArray);
       });
     }
-  
+    
+    compareAllProducts(){
+      this.getAllProducts().then(allProductsDetails => {
+          allProductsDetails.forEach(product => {
+            cy.contains('.inventory_item_name', product.title).click();
+            const openedProductDetails = {title:'',description: '',price: '',imageUrl:''};
+            // Use cy.get().invoke() to handle the promise and retrieve the text (otherwise is not working properly)
+            this.componentsProductsPage.inventoryDetailsName().then(text => {openedProductDetails.title = text.trim();});
+            this.componentsProductsPage.inventoryDetailsDescription().then(text => {openedProductDetails.description = text.trim();});
+            this.componentsProductsPage.inventoryDetailsPrice().then(text => {openedProductDetails.price = text.trim();});
+            this.componentsProductsPage.inventoryDetailsImageUrl().then(src => {openedProductDetails.imageUrl = src.trim();});
+            cy.wrap(openedProductDetails).should('deep.equal', product);
+            cy.go('back');
+        });
+      });
+    }
     
   }
   module.exports = new ProductsPage();
