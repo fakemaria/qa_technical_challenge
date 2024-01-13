@@ -1,4 +1,3 @@
-
 import loginPage from "../page_objects/login_page.js"
 import productsPage from "../page_objects/products_page.js"
 
@@ -17,8 +16,6 @@ describe('As a Swag Labs standard_user, I need to open the products detail page 
 
     it("User Story 3_2: standard_user can add to cart products from landing page", () => {
         productsPage.addToCartFromHomePage();
-             
-        //productsPage.compareCart(allproducts);
     });
 
     it('User Story 4: standard_user can review previously added items to the cart and remove them', () => {
@@ -28,11 +25,7 @@ describe('As a Swag Labs standard_user, I need to open the products detail page 
         productsPage.addToCartFromHomePage();
         productsPage.navigateToShoppingCart();
         productsPage.removeFromCart();
-        
-
     });
-
-    ////////////////////
       
     it('User Story 5: standard_user can sort products', () => {
         productsPage.sortProducts();
@@ -43,19 +36,11 @@ describe('As a Swag Labs standard_user, I need to open the products detail page 
         productsPage.resetAppStatus();
     });
 
+    it('User Story 7: see the product information in the product page and product details page', () => {
+        productsPage.compareAllProducts();
+    });
+
     afterEach(() => {
         productsPage.logOut();
     });
 });
-
-
-// ## User Story 7
-// As a Swag Labs standard_user, I need to see the product information in the product page and product details page in the Swag Labs ordering platform so that I can know what I'm buying
-
-// ## Acceptance Criterias 7
-// Ensure the Swag Labs standard_user are able to:
-// 1. Log in to Swag Labs
-// 2. Navigate in the Products page
-// 3. Able to see all the product information (image, title, description, price)
-// 4. Navigate into the Products details page
-// 5. Able to see all the product information (image, title, description, price)
