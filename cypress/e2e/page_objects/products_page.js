@@ -27,6 +27,7 @@ class ProductsPage {
       this.componentsProductsPage.logOut().click();
     }
 
+    // Resets the application status, checking for changes in the shopping cart badge
     resetAppStatus(){
       this.componentsProductsPage.menu().click();
       this.componentsProductsPage.shoppingCartBadge().should('exist');
@@ -35,6 +36,7 @@ class ProductsPage {
       this.componentsProductsPage.closeSidebar().click();
     }
 
+    // Adds producst from each product or removes products from the cart, based on the 'remove' parameter
     addToCartFromProduct(remove) {
       this.getProducts().then(($products) => {
           $products.each((index, element) => {
@@ -59,6 +61,7 @@ class ProductsPage {
       })
     }
     
+    // Adds or removes products from the cart on the homepage, based on the 'remove' parameter
     addToCartFromHomePage(remove) {
       const allproducts = [];
       
@@ -74,6 +77,7 @@ class ProductsPage {
         })
     }
 
+    // Navigates to a specific product or the first product
     navigateToProduct(first) {
       this.getProducts().then(($products) => {
           
@@ -89,6 +93,7 @@ class ProductsPage {
       })
     }
 
+    // Sort products by name and price, then compares them to the sorted list
     sortProducts(){
       const sortOptionsByName = ['az', 'za'];
       const sortOptionsByPrice= ['lohi', 'hilo'];
@@ -119,10 +124,12 @@ class ProductsPage {
       this.componentsProductsPage.shoppingCartUrl();
     }
     
+    // Selects a sorting option from the dropdown
     selectSortOption(option) {
       this.componentsProductsPage.sortContainer().select(option);
     }
-  
+    
+    // Retrieves sorted product names based on the sorting option
     getSortedProductNames(price) {
       if (price) return cy.get('.inventory_item_price').invoke('text').then(text => text.split('\n'))
       else return cy.get('.inventory_item_name').invoke('text').then(text => text.split('\n'));
@@ -132,6 +139,7 @@ class ProductsPage {
       return cy.get('.inventory_item_name'); 
     }
 
+    // Retrieves prices of all products in the cart
     getAllProductsPrices() {
       return cy.get('.cart_item').then(products => {
         const productPricesArray = products.map((index, product) => {
@@ -151,6 +159,7 @@ class ProductsPage {
       })
     }
     
+    // Retrieve details of all products on the page
     getAllProducts() {
       return cy.get('.inventory_item').then(products => {
         const productDetailsArray = products.map((index, product) => {
@@ -165,6 +174,7 @@ class ProductsPage {
       });
     }
     
+    // Compares details of all products on the page with their individual pages
     compareAllProducts(){
       this.getAllProducts().then(allProductsDetails => {
           allProductsDetails.forEach(product => {
