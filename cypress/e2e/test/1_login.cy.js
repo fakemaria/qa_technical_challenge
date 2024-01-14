@@ -1,3 +1,4 @@
+import constants from "../constants/constants.js";
 import loginPage from "../page_objects/login_page.js"
 import productsPage from "../page_objects/products_page.js";
 
@@ -15,7 +16,7 @@ describe("As a Swag Labs admin, I need to access/logout the platform with the 4 
           productsPage.componentsProductsPage.inventoryLocationUrl();
           productsPage.logOut();
         } 
-        else loginPage.componentsLoginPage.error().should('equal','Epic sadface: Sorry, this user has been locked out.');
+        else loginPage.componentsLoginPage.error().should('equal',constants.logInError);
       });
     });
   });
