@@ -1,5 +1,5 @@
 <details>
-<summary> # FCM Technical Challengue details</summary>   
+# <summary> FCM Technical Challengue details</summary>   
 # FCM Digital - QA Technical challenge
 Welcome to the FCM Digital QA team technical challenge, the objective of this challenge is to learn more about the way you work. There is no single solution, so don't worry, just do the best you can. 
 
