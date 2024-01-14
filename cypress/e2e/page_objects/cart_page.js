@@ -9,7 +9,8 @@ class CartPage {
       price: () => cy.get('.inventory_item_price').should('exist').should('be.visible').should('not.be.empty'),
       cartItems:() => cy.get('.cart_item'),
     }
-    
+
+    // Check if all cart items are displayed with necessary information
     checkAllCartItems(){
       this.componentsCartPage.cartItems().then(products => {
           this.componentsCartPage.cartQuantity();
@@ -19,6 +20,7 @@ class CartPage {
       });
     }
 
+    // Check the number of items added to the basket
     checkNumberOfItemsAddedToBasket(){
       const first = true;
       cy.get('.inventory_item_name')
@@ -38,26 +40,30 @@ class CartPage {
       })
     }
 
+    // Compare items from the homepage and the cart page
     compareItemsFromHomepageCartPage() {
       cy.get('.inventory_item').then(products => {
         const productDetailsArray = products.map((product) => {
-          const name = Cypress.$(product).find('.inventory_item_name').text();
-          const description = Cypress.$(product).find('.inventory_item_desc').text();
-          const price = Cypress.$(product).find('.inventory_item_price').text();
-          return {name,description,price};
+          return this.getProductDetails(product);
         });
         productsPage.addToCartFromHomePage();
         productsPage.navigateToShoppingCart();
-        cy.get('.cart_item').then(products => {
-          const cartDetailsArray = products.map((product) => {
-            const name = Cypress.$(product).find('.inventory_item_name').text();
-            const description = Cypress.$(product).find('.inventory_item_desc').text();
-            const price = Cypress.$(product).find('.inventory_item_price').text();
-            return {name,description,price};
+        cy.get('.cart_item').then(products2 => {
+          const cartDetailsArray = products2.map((product2) => {
+            return this.getProductDetails(product2)
           });
           cy.wrap(Cypress.$.makeArray(cartDetailsArray)).should('deep.equal', Cypress.$.makeArray(productDetailsArray));
         });
       });
+    }
+
+    // Helper method to extract product details from an element
+    getProductDetails(element) {
+      const name = Cypress.$(element).find('.inventory_item_name').text();
+      const description = Cypress.$(element).find('.inventory_item_desc').text();
+      const price = Cypress.$(element).find('.inventory_item_price').text();
+  
+      return { name, description, price };
     }
    
   }
