@@ -1,5 +1,5 @@
 <details>
-# <summary> FCM Technical Challengue details</summary>   
+<summary><h1> FCM Technical Challengue details</h1></summary>   
 # FCM Digital - QA Technical challenge
 Welcome to the FCM Digital QA team technical challenge, the objective of this challenge is to learn more about the way you work. There is no single solution, so don't worry, just do the best you can. 
 
@@ -288,9 +288,15 @@ Additionally, the current project is integrated with Cypress Cloud (details belo
 
 # How to Run the Tests
 
+## run test in isolation
+
+
+
 ## run the whole suite from terminal in headless mode
 
 yarn run cypress run 
+
+This will open cypress GUI and test can be run from there. To run a singles test for debugging purposes the property .only can be added to each it.
 
 ## run the whole suite from terminal in Cypress cloud in headless mode
 
@@ -299,7 +305,7 @@ npx cypress run --record --key 74b72177-1741-4496-a2c2-3d48c0467867
 results can be seen in: https://cloud.cypress.io/projects/8bqc3b/runs?branches=%5B%5D&committers=%5B%5D&flaky=%5B%5D&page=1&status=%5B%5D&tags=%5B%5D&timeRange=%7B%22startDate%22%3A%221970-01-01%22%2C%22endDate%22%3A%222038-01-19%22%7D
 
 # Git Commands
-During the whole exercise, I use source control GUI on VS Code.    
+During the whole exercise, I use source control GUI on VS Code and Github Dersktop    
 However, these are the commands to use git from command line
 
 To set up the project:
