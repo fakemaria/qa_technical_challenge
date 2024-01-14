@@ -19,21 +19,6 @@ class CartPage {
       });
     }
 
-    // getAllCartItems() {
-    //   return this.componentsCartPage.cartItems().then(products => {
-    //     const cartDetailsArray = products.map((index, product) => {
-    //       const quantity = Cypress.$(product).find('.cart_quantity').text();
-    //       const name = Cypress.$(product).find('.inventory_item_name').text();
-    //       const description = Cypress.$(product).find('.inventory_item_desc').text();
-    //       const price = Cypress.$(product).find('.inventory_item_price').text();
-  
-    //       return {quantity,name,description,price};
-    //     });
-    //     console.log (Cypress.$.makeArray(cartDetailsArray));
-    //     return Cypress.$.makeArray(cartDetailsArray);
-    //   });
-    // }
-
     checkNumberOfItemsAddedToBasket(){
       const first = true;
       cy.get('.inventory_item_name')
@@ -52,7 +37,7 @@ class CartPage {
           this.componentsCartPage.shoppingCartBadge().then((text) => {expect( parseInt(text)).to.eq(cartCount);})
       })
     }
-    //pending add logic to check that elements are visible and enabled
+
     compareItemsFromHomepageCartPage() {
       cy.get('.inventory_item').then(products => {
         const productDetailsArray = products.map((product) => {
@@ -75,29 +60,5 @@ class CartPage {
       });
     }
    
-    getCartItemPrice(productName) {
-      return cy.contains('.cart_item_label', productName)
-        .siblings('.cart_item_price')
-        .text();
-    }
-  
-    compareCartItemsWithCheckoutPrices(items) {
-      items.forEach(item => {
-        const cartItemPrice = this.getCartItemPrice(item);
-        const checkoutItemPrice = checkoutPage.getCheckoutItemPrice(item);
-  
-        expect(cartItemPrice).to.equal(checkoutItemPrice);
-      });
-    }
-    compareCart(items) {
-      cy.get('.shopping_cart_badge').click();
-  
-      items.forEach(item => {
-        cy.get('.cart_item').should('contain.text', item);
-      });
-  
-      cy.get('.cart_footer .btn_secondary').click(); 
-    }
-    
   }
 module.exports = new CartPage();

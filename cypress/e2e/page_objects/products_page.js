@@ -1,3 +1,5 @@
+import constants from "../constants/constants.js";
+
 class ProductsPage {
     
     componentsProductsPage = {
@@ -8,13 +10,15 @@ class ProductsPage {
       buttonAddToCart: () => cy.get('[data-test^=add-to-cart]'),
       buttonRemoveFromCart: () => cy.get('[data-test^=remove]'),
       shoppingCartBadge: () => cy.get('.shopping_cart_badge'),
+      sortContainer: () => cy.get('.product_sort_container'),
       shoppingCart: () => cy.get('[class="shopping_cart_link"]'),
+      shoppingCartUrl: () => cy.location("pathname").should('equal', constants.cartUrl),
       backToProducts: () => cy.get('[data-test="back-to-products"]'),
       inventoryDetailsName: () => cy.get('.inventory_details_name').invoke('text'),
       inventoryDetailsDescription: () => cy.get('.inventory_details_desc').invoke('text'),
       inventoryDetailsPrice: () => cy.get('.inventory_details_price').invoke('text'),
       inventoryDetailsImageUrl: () => cy.get('.inventory_details_img').invoke('attr','src'),
-      inventoryLocationUrl: () => cy.location("pathname").should("equal", "/inventory.html"),
+      inventoryLocationUrl: () => cy.location("pathname").should('equal', constants.inventoryUrl),
     }
     
     logOut() {
@@ -54,7 +58,7 @@ class ProductsPage {
           }
       })
     }
-    //review constant allproducts
+    
     addToCartFromHomePage(remove) {
       const allproducts = [];
       
@@ -112,12 +116,11 @@ class ProductsPage {
 
     navigateToShoppingCart(){
       this.componentsProductsPage.shoppingCart().click();
-      cy.location("pathname").should("equal", "/cart.html");
+      this.componentsProductsPage.shoppingCartUrl();
     }
     
-    //refactor into the method
     selectSortOption(option) {
-      cy.get('.product_sort_container').select(option);
+      this.componentsProductsPage.sortContainer().select(option);
     }
   
     getSortedProductNames(price) {
@@ -128,32 +131,17 @@ class ProductsPage {
     getProducts() {
       return cy.get('.inventory_item_name'); 
     }
-    //this and next one to be moved to checkout or erased    
-    retrieveSumPrices(){
-      return this.getAllProductsPrices().then(allProductPrices => {
-        const totalPrice = allProductPrices.reduce((acc, price) => acc + price, 0);
-        console.log(totalPrice);
-        return parseInt(totalPrice);
-      });
-      
-    }
 
     getAllProductsPrices() {
-      // Get all product elements on the page
       return cy.get('.cart_item').then(products => {
-        // Extract prices for each product
         const productPricesArray = products.map((index, product) => {
           const price = Cypress.$(product).find('.inventory_item_price').text();
-          return parseFloat(price.replace('$', '')); // Convert to a numeric value
+          return parseFloat(price.replace('$', ''));
         });
-  
-        // Convert the array-like object to a standard array
         return Cypress.$.makeArray(productPricesArray);
         });
       }
-    
 
-    //move to cart_page ???? 
     removeFromCart() {
       this.getProducts().then(($products) => {
         $products.each((index, element) => {

@@ -1,3 +1,5 @@
+import constants from "../constants/constants.js";
+
 class LoginPage {
     
     componentsLoginPage = {
@@ -9,24 +11,22 @@ class LoginPage {
     }
 
     users = [
-      { username: 'standard_user', password: 'secret_sauce', isValid: true },
-      { username: 'locked_out_user', password: 'secret_sauce', isValid: false },
-      { username: 'problem_user', password: 'secret_sauce', isValid: true },
-      { username: 'performance_glitch_user', password: 'secret_sauce', isValid: true },
+      { username: constants.standardUser , password: constants.password, isValid: true },
+      { username: constants.lockedUser , password: constants.password, isValid: false },
+      { username: constants.problemUser , password: constants.password , isValid: true },
+      { username: constants.performanceGlitchUser , password: constants.password , isValid: true },
     ]
 
     visit() {
       cy.clearAllCookies();
-      cy.visit('https://www.saucedemo.com/'); 
+      cy.visit(constants.swagLabs); 
     }
 
     login(username, password) {
-      //cy.session(username, ()=> {
         this.visit();
         this.componentsLoginPage.username().type(username);
         this.componentsLoginPage.password().type(password);
         this.componentsLoginPage.loginButton().click();
-      //})
     }
     
   }
