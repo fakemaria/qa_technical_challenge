@@ -140,7 +140,7 @@ Additionally, the current project is integrated with Cypress Cloud (details belo
 # Test Cases
 ## Pre-requisites:
     1. Except User Story 1, the rest of test cases will use the username standard_user    
-    2. After each test case, the user will log out    
+    2. After each test case, the user will reset the app and log out    
 
 ## User Story 1: Log in in Swag Labs
 
@@ -334,3 +334,15 @@ To push changes to remote:
 
 Log in page was the tricky part of the exercise, as I was getting a 401 error that broke the test. Even adding commands to ignore the    
 error in Cypress, I got that error. It seems that switching to Edge browser make it work. 
+
+# Regression testing after finished the code
+
+## Cypress cloud
+
+![image](https://github.com/fakemaria/qa_technical_challenge/assets/67930710/0e463f6a-8b66-4a27-af9f-64cd94f46dcb)
+
+https://cloud.cypress.io/projects/8bqc3b/runs/3/overview?roarHideRunsWithDiffGroupsAndTags=1
+
+## Local run
+
+![image](https://github.com/fakemaria/qa_technical_challenge/assets/67930710/f9a04c1a-cffd-4be4-b399-64554c5e1247)
