@@ -154,7 +154,7 @@ Additionally, the current project is integrated with Cypress Cloud (details belo
     Given the locked_out user          
     When typing the username and password in Swag Labs login page           
     And clicking on Login button            
-    Then a validation is raised with the string "Epic sadface: Sorry, this user has been locked out."          
+    Then a validation is raised with the string "Epic sadface: Sorry, this user has been locked out."       
 ### TC3:
     Given the problem_user          
     When typing the username and password in Swag Labs login page          
