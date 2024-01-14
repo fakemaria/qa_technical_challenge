@@ -5,7 +5,7 @@ Welcome to the FCM Digital QA team technical challenge, the objective of this ch
 You will have to create a fork of this repository on which you will work. Once you complete the challenge, you will contact us via email and we will proceed to review it.
 
 ## Goals
-Given some user stories witch their acceptance criterias:
+**Given** some user stories witch their acceptance criterias:
  1. Write the test cases in the README.md file, [Test Cases](#test-cases) section.
  2. Create a project using YARN.
  3. Install Cypress using YARN.
@@ -125,68 +125,165 @@ Ensure the Swag Labs standard_user are able to:
 6. Able to see a confirmation page
 
 # Test Cases
-User Story 1: Log in in Swag Labs
+## Pre-requisites:
+    1. Except User Story 1, the rest of test cases will use the username standard_user    
+    2. After each test case, the user will log out    
 
-TC1: 
-    Given the standar_user  
-    When typing the username and password in Swag Labs login page
-    And clicking on Login button
-    Then I can log in 
-    And I can log out
-TC2: 
-    Given the locked_out user  
-    When typing the username and password in Swag Labs login page
-    And clicking on Login button
-    Then a validation is raised with the string "Epic sadface: Sorry, this user has been locked out."
-TC3:
-    Given the problem_user  
-    When typing the username and password in Swag Labs login page
-    And clicking on Login button
-    Then I can log in 
-    And I can log out
-TC4:
-    Given the performance_glitch_user  
-    When typing the username and password in Swag Labs login page
-    And clicking on Login button
-    Then I can log in 
-    And I can log out
+## User Story 1: Log in in Swag Labs
 
-User Story 2: Open the products and get the information
+### TC1: 
+    **Given** the standar_user    
+    **When** typing the username and password in Swag Labs login page               
+    **And** clicking on Login button           
+    **Then** I can log in         
+    **And** I can log out              
+### TC2: 
+    **Given** the locked_out user          
+    **When** typing the username and password in Swag Labs login page           
+    **And** clicking on Login button            
+    **Then** a validation is raised with the string "Epic sadface: Sorry, this user has been locked out."          
+### TC3:
+    **Given** the problem_user          
+    **When** typing the username and password in Swag Labs login page          
+    **And** clicking on Login button           
+    **Then** I can log in           
+    **And** I can log out            
+### TC4:
+    **Given** the performance_glitch_user                
+    **When** typing the username and password in Swag Labs login page          
+    **And** clicking on Login button             
+    **Then** I can log in           
+    **And** I can log out                
 
-TC5: 
-    Given I am logged in Swag Labs as standard_user
-    When I click on every item on the page
-    Then I can access it owns details
-    And I can return back to the landing page
+## User Story 2: Open the products and get the information
 
-User Story 3: Add products to cart
+### TC5: 
+    **Given** I am logged in Swag Labs as standard_user          
+    **When** I click on every item on the page           
+    **Then** I can access it owns details              
+    **And** I can return back to the landing page               
 
-TC6:
-    Given I am logged in Swag Labs as standard_user
-    When I click on add to cart from products page
-    Then items are added to the cart
-    And shopping cart badge has a value
-    And button has changed from "Add to cart" to "Remove" 
+## User Story 3: Add products to cart
 
-TC7:
-    Given I am logged in Swag Labs as standard_user
-    When I click on add to cart from each Product details page of each item
-    Then items are added to the cart
-    And shopping cart badge has a value
-    And button has changed from "Add to cart" to "Remove" 
+### TC6:
+    **Given** I am logged in Swag Labs as standard_user             
+    **When** I click on add to cart from products page            
+    **Then** items are added to the cart              
+    **And** shopping cart badge has a value               
+    **And** button has changed from "Add to cart" to "Remove"                
 
-User Story 4: Review products added to the cart and able to remove them
+### TC7:
+    **Given** I am logged in Swag Labs as standard_user               
+    **When** I click on add to cart from each Product details page of each item              
+    **Then** items are added to the cart              
+    **And** shopping cart badge has a value            
+    **And** button has changed from "Add to cart" to "Remove"                   
 
-TC 8: pending to write that
-    Given I am logged in Swag Labs as standard_user
-    When I click on add to cart from each Product details page of each item
-    Then items are added to the cart
-    And shopping cart badge has a value
-    And button has changed from "Add to cart" to "Remove" 
+## User Story 4: Review products added to the cart and able to remove them
+
+### TC 8: 
+    **Given** I am logged in Swag Labs as standard_user              
+    **When** I click on add to cart each item from product details page               
+    **Then** items are added to the cart             
+    **And** user can remove them from the product details page              
+    **And** shopping cart badge status returns back to its initial status               
+### TC 9: 
+    **Given** I am logged in Swag Labs as standard_user                 
+    **When** I click on add to cart from each item description page              
+    **Then** items are added to the cart               
+    **And** user can remove them from the product details page              
+    **And** shopping cart badge status returns back to its initial status                
+### TC 10: 
+    **Given** I am logged in Swag Labs as standard_user                
+    **When** I click on add to cart each item from product details page                             
+    **Then** items are added to the cart                     
+    **And** user can remove them from the shopping cart                   
+    **And** shopping cart badge status returns back to its initial status                      
+
+## User Story 5: User can use the sorting of the webpage
+
+### TC 11:
+    **Given** I am logged in Swag Labs as standard_user            
+    **When** I navigate to products page            
+    **Then** items are sortered in alphabetical order order by name            
+    **And** when clicking on sort by Name (Z to A)              
+    **Then** items are sortered in reverse alphabetical order by name         
+    **And** when clicking on sort by Price (Low to High)            
+    **Then** items are sortered by price from lowest to highest         
+    **And** when clicking on sort by Price (High to Low)              
+    **Then** items are sortered by price from highes to lowest              
+
+## User Story 6: User can reset app status to its initial settings
+
+### TC 12:
+    **Given** I am logged in Swag Labs as standard_user      
+    **When** I click on add to cart each item from product details page     
+    **Then** items are added to the cart     
+    **And** user can click on reset app status from the menu sidebar      
+    **Then** app is status goes back to its initial settings and shopping cart badge status returns back to its initial status      
+
+## User Story 7: User is able to see the same information in both products page and each product
+
+### TC 13: 
+    **Given** I am logged in Swag Labs as standard_user     
+    **When** I check name, description, price and image from all items in product page     
+    **And** click on each item on the page      
+    **Then** items details page shows the same name, description, price and image     
+
+## User Story 8: User is able to see added products to the shopping cart
+
+### TC 13: 
+    **Given** I am logged in Swag Labs as standard_user          
+    **When** I add all items from product page    
+    **Then** I can see the numbers of items added in the shopping badge icon         
+    **And** when I click on first item on products page      
+    **Then** I can see the numbers of items items added in the shopping badge icon      
+    **And** when I click on the shopping badge icon              
+    **Then** I can see the numbers of items added in the shopping badge icon      
+
+## User Story 9: User is able to see that products added to the shopping cart matches 
+
+### TC 14: 
+    **Given** I am logged in Swag Labs as standard_user                   
+    **When** I add all items from product page             
+    **Then** when I navigate to cart page I can checkout              
+    **And** when clicking on continue without entering any information                 
+    **Then** a validation is raised "Error: First Name is required"                   
+    **And**  filling first name and clicking on continue            
+    **Then** a validation is raised "Error: Last Name is required"              
+    **And** filling last name and clicking on continue             
+    **Then** a validation is raised "Error: Postal Code is required"                               
+    **And** filling all fields and clicking on continue             
+    **Then** the page Checkout overview is displayed     
+    **And** Payment information displays the selected payment method      
+    **And** Shipping information displays "Free Pony Express Delivery!"      
+    **And** Item total value matches the sum of all items added to the basket
+    **And** taxes displayes a 8% of the item total rounded up to the second decimal
+    **And** total displayes the sum of item total plus taxes
+    **And** when clicking on finish
+    **Then** confirmation messages are shown with the text "Thank you for your order!" and "Your order has been dispatched, and will arrive just as fast as the pony can get there!"
+
+
+## User Story 10: User is able to see that products added to the shopping cart matches 
+
+### TC 15: 
+    **Given** I am logged in Swag Labs as standard_user          
+    **When** I add all items from product page    
+    **Then** when I navigate to cart page I can check that name, description and price matches product page         
+    **And** all elements in shopping cart are not empty and are visible     
 
 
 # How to Run the Tests
+
+## run the whole suite from terminal in headless mode
+
 yarn run cypress run -> to run the whole suite
+
+## run the whole suite from terminal in Cypress cloud in headless mode
+
+npx cypress run --record --key 74b72177-1741-4496-a2c2-3d48c0467867
+
+results can be seen in: https://cloud.cypress.io/projects/8bqc3b/runs?branches=%5B%5D&committers=%5B%5D&flaky=%5B%5D&page=1&status=%5B%5D&tags=%5B%5D&timeRange=%7B%22startDate%22%3A%221970-01-01%22%2C%22endDate%22%3A%222038-01-19%22%7D
 
 # Git Commands
 Section to add the git commands used during the challenge

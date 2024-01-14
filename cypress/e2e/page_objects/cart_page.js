@@ -65,7 +65,6 @@ class CartPage {
         productsPage.navigateToShoppingCart();
         cy.get('.cart_item').then(products => {
           const cartDetailsArray = products.map((product) => {
-            const quantity = Cypress.$(product).find('.cart_quantity').text();
             const name = Cypress.$(product).find('.inventory_item_name').text();
             const description = Cypress.$(product).find('.inventory_item_desc').text();
             const price = Cypress.$(product).find('.inventory_item_price').text();

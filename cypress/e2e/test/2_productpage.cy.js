@@ -18,25 +18,32 @@ describe('As a Swag Labs standard_user, I need to open the products detail page 
         productsPage.addToCartFromHomePage();
     });
 
-    it('US 4, TC 8: standard_user can review previously added items to the cart and remove them', () => {
+    it('US 4, TC 8: standard_user can add items to the cart from products page and remove them', () => {
         let remove = true;
         productsPage.addToCartFromHomePage(remove);
+    });
+
+    it('US 4, TC 9: standard_user can add items to the cart from each item page and remove them', () => {
+        let remove = true;
         productsPage.addToCartFromProduct(remove);
+    });
+
+    it('US 4, TC 10: standard_user can add items from products page to the cart and remove them from the basket', () => {
         productsPage.addToCartFromHomePage();
         productsPage.navigateToShoppingCart();
         productsPage.removeFromCart();
     });
       
-    it('User Story 5: standard_user can sort products', () => {
+    it('US 5, TC 11: standard_user can sort products', () => {
         productsPage.sortProducts();
     });
     
-    it('User Story 6: standard_user can reset app status' , () => {
+    it('US 6, TC 12: standard_user can reset app status' , () => {
         productsPage.addToCartFromHomePage();
         productsPage.resetAppStatus();
     });
 
-    it('User Story 7: see the product information in the product page and product details page', () => {
+    it('US 7, TC 13: standard_user can see the product information in the product page and product details page', () => {
         productsPage.compareAllProducts();
     });
 

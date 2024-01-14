@@ -19,6 +19,7 @@ class ProductsPage {
     
     logOut() {
       this.componentsProductsPage.menu().click();
+      this.componentsProductsPage.resetApp().click();
       this.componentsProductsPage.logOut().click();
     }
 
@@ -172,8 +173,6 @@ class ProductsPage {
           
           return {title,description,price,imageUrl};
         });
-        // Convert the array-like object to a standard array
-        //console.log(Cypress.$.makeArray(productDetailsArray));
         return Cypress.$.makeArray(productDetailsArray);
       });
     }
@@ -183,7 +182,6 @@ class ProductsPage {
           allProductsDetails.forEach(product => {
             cy.contains('.inventory_item_name', product.title).click();
             const openedProductDetails = {title:'',description: '',price: '',imageUrl:''};
-            // Use cy.get().invoke() to handle the promise and retrieve the text (otherwise is not working properly)
             this.componentsProductsPage.inventoryDetailsName().then(text => {openedProductDetails.title = text.trim();});
             this.componentsProductsPage.inventoryDetailsDescription().then(text => {openedProductDetails.description = text.trim();});
             this.componentsProductsPage.inventoryDetailsPrice().then(text => {openedProductDetails.price = text.trim();});
