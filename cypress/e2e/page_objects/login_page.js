@@ -3,7 +3,9 @@ class LoginPage {
     componentsLoginPage = {
       username: ()  => cy.get('[data-test="username"]'),
       password: ()  => cy.get('[data-test="password"]'),
-      loginButton: () => cy.get('[data-test="login-button"]')
+      loginButton: () => cy.get('[data-test="login-button"]'),
+      error: () => cy.get('[data-test="error"]').invoke('text').should('exist'),
+      
     }
 
     users = [

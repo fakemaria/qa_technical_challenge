@@ -9,7 +9,7 @@ describe('Cart page logic', () => {
       loginPage.login("standard_user", "secret_sauce");
     });
 
-    it('User Story 10: Navigate to checkout ', () => {
+    it('US 10, TC 15: Navigate to checkout ', () => {
       
        productsPage.addToCartFromHomePage();
        productsPage.navigateToShoppingCart();
@@ -18,10 +18,8 @@ describe('Cart page logic', () => {
        cartPage.checkAllCartItems();
        productsPage.getAllProductsPrices().then(allProductPrices => {
         const totalPrice = allProductPrices.reduce((acc, price) => acc + price, 0);
-        console.log(totalPrice);
         const taxes = Math.ceil(totalPrice*0.08*100)/100;
         const finalPrice = Math.ceil(totalPrice*1.08*100)/100;
-        console.log(taxes)
         checkoutPage.checkTotalPricesAndInformation(totalPrice,taxes,finalPrice);
       });
     });

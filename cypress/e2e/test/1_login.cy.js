@@ -1,5 +1,5 @@
 import loginPage from "../page_objects/login_page.js"
-import products_page from "../page_objects/products_page.js";
+import productsPage from "../page_objects/products_page.js";
 
 describe("As a Swag Labs admin, I need to access/logout the platform with the 4 different user types.", () => {
   
@@ -8,19 +8,14 @@ describe("As a Swag Labs admin, I need to access/logout the platform with the 4 
     {
       const scenarioType = user.isValid ? 'valid' : 'invalid';
   
-      it(`Log in/Log out to Swag Labs  ${index + 1} ${user.username} (${scenarioType})`, () => 
+      it(`US1, TC ${index + 1} ${user.username} (${scenarioType})`, () => 
       {
         loginPage.login(user.username, user.password);
-  
         if (user.isValid) {
-          cy.location("pathname").should("equal", "/inventory.html");
-          products_page.logOut();
+          productsPage.componentsProductsPage.inventoryLocationUrl();
+          productsPage.logOut();
         } 
-        
-        else cy.get('[data-test="error"]').should("exist"); 
-
+        else loginPage.componentsLoginPage.error().should('equal','Epic sadface: Sorry, this user has been locked out.');
       });
-
     });
-
   });

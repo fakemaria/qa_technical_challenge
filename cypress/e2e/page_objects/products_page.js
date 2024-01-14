@@ -14,11 +14,12 @@ class ProductsPage {
       inventoryDetailsDescription: () => cy.get('.inventory_details_desc').invoke('text'),
       inventoryDetailsPrice: () => cy.get('.inventory_details_price').invoke('text'),
       inventoryDetailsImageUrl: () => cy.get('.inventory_details_img').invoke('attr','src'),
-      //product: () => cy.contains(productName).parent().find('a')
+      inventoryLocationUrl: () => cy.location("pathname").should("equal", "/inventory.html"),
     }
     
     logOut() {
       this.componentsProductsPage.menu().click();
+      this.componentsProductsPage.resetApp().click();
       this.componentsProductsPage.logOut().click();
     }
 
@@ -37,14 +38,16 @@ class ProductsPage {
             this.getProducts().contains(productName).click();
             this.componentsProductsPage.buttonAddToCart().click();
             this.componentsProductsPage.shoppingCartBadge().should('exist');
+            this.componentsProductsPage.buttonRemoveFromCart().should('exist');
             this.componentsProductsPage.backToProducts().click();
-            cy.location("pathname").should("equal", "/inventory.html");
+            this.componentsProductsPage.inventoryLocationUrl();
           })
           if (remove){
             $products.each((index, element) => {
               const productName = Cypress.$(element).text().trim();
               this.getProducts().contains(productName).click();
               this.componentsProductsPage.buttonRemoveFromCart().click();
+              this.componentsProductsPage.buttonAddToCart().should('exist');
               this.componentsProductsPage.backToProducts().click();
             })
             this.componentsProductsPage.shoppingCartBadge().should('not.exist');
@@ -57,10 +60,9 @@ class ProductsPage {
       
         this.getProducts().then(($products) => {
             $products.each((index, element) => {
-              //Cypress.$(element).find('.inventory_item_price').text().toString(); ///????????????????????
               const productName = Cypress.$(element).text().trim();
               cy.contains(productName).parentsUntil("[class='inventory_item']").find('.btn_primary').click();
-              cy.location("pathname").should("equal", "/inventory.html");
+              this.componentsProductsPage.inventoryLocationUrl();
               allproducts.push(productName);
               if (remove)  cy.contains(productName).parentsUntil("[class='inventory_item']").find('.btn_secondary').click();
             })
@@ -77,7 +79,7 @@ class ProductsPage {
             const productName = Cypress.$(element).text().trim();
             cy.contains(productName).parent().find('a').click();
             this.componentsProductsPage.backToProducts().click();
-            cy.location("pathname").should("equal", "/inventory.html");
+            this.componentsProductsPage.inventoryLocationUrl();
           })
         }
       })
@@ -171,8 +173,6 @@ class ProductsPage {
           
           return {title,description,price,imageUrl};
         });
-        // Convert the array-like object to a standard array
-        //console.log(Cypress.$.makeArray(productDetailsArray));
         return Cypress.$.makeArray(productDetailsArray);
       });
     }
@@ -182,7 +182,6 @@ class ProductsPage {
           allProductsDetails.forEach(product => {
             cy.contains('.inventory_item_name', product.title).click();
             const openedProductDetails = {title:'',description: '',price: '',imageUrl:''};
-            // Use cy.get().invoke() to handle the promise and retrieve the text (otherwise is not working properly)
             this.componentsProductsPage.inventoryDetailsName().then(text => {openedProductDetails.title = text.trim();});
             this.componentsProductsPage.inventoryDetailsDescription().then(text => {openedProductDetails.description = text.trim();});
             this.componentsProductsPage.inventoryDetailsPrice().then(text => {openedProductDetails.price = text.trim();});
