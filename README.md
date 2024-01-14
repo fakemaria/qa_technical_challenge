@@ -290,15 +290,30 @@ Additionally, the current project is integrated with Cypress Cloud (details belo
 
 ## run test in isolation
 
-
-
-## run the whole suite from terminal in headless mode
-
-yarn run cypress run 
+yarn run cypress open 
 
 This will open cypress GUI and test can be run from there. To run a singles test for debugging purposes the property .only can be added to each it.
 
+## run the whole suite from terminal in headless mode
+
+yarn run cypress run
+
+1. Browser Selection:
+- To specify a browser add that option "--browser browsername"
+  - The list of brosers available are:
+   a electron   
+   b chrome  
+   c chromium   
+   d chrome:canary   
+   e edge   
+   f firefox   
+2. Specifying a Specific Test File:
+   - To run a specific test file: yarn run cypress run --spec path/to/your/test/file.spec.js
+     
+
 ## run the whole suite from terminal in Cypress cloud in headless mode
+
+Same rules regarding browser selection or specifying a test file applies from previous example.
 
 npx cypress run --record --key 74b72177-1741-4496-a2c2-3d48c0467867
 
