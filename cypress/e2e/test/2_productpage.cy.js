@@ -1,9 +1,10 @@
 import loginPage from "../page_objects/login_page.js"
 import productsPage from "../page_objects/products_page.js"
+import constants from "../constants/constants.js";
 
-describe('As a Swag Labs standard_user, I need to open the products detail page in the Swag Labs ordering platform so that get more information about the products', () => {
+describe('Product page logic', () => {
     beforeEach(() => {
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.login(constants.standardUser, constants.password);
     });
 
     it("US 2, TC 5: standard_user can log in and navigate through all products", () => {
