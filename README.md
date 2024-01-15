@@ -133,7 +133,7 @@ As this exercise serves as a Proof of Concept (POC), it has been determined that
 
 In this context, I have developed a set of agnostic tests that can be executed on the same platform with different datasets. The primary objective is to integrate these tests into a Continuous Integration/Continuous Deployment (CI/CD) pipeline, aligning with Left Shift testing practices. This entails running automated tests whenever a change is made to the core of our platform and is pushed to the main branch. Furthermore, the same set of tests is executed in a pre-production stage with real data, thereby closing the loop on CI/CD circle practices.
 
-The project is set up to leverage GitHub Actions, ensuring that every time the code is pushed to the main branch, the tests are automatically executed. If the code fails to meet the quality gates criteria, it should not be allowed to merge into the main branch.
+The project can be set up to leverage GitHub Actions, ensuring that every time the code is pushed to the main branch, the tests are automatically executed. If the code fails to meet the quality gates criteria, it should not be allowed to merge into the main branch.
 
 Additionally, the current project is integrated with Cypress Cloud (details below).
 
@@ -292,7 +292,7 @@ Additionally, the current project is integrated with Cypress Cloud (details belo
 
 yarn run cypress open 
 
-This will open cypress GUI and test can be run from there. To run a singles test for debugging purposes the property .only can be added to each it.
+This will open cypress GUI and test can be run from there. To run a singles test for debugging purposes the property .only can be added to each (it).
 
 ## run the whole suite from terminal in headless mode
 
@@ -350,7 +350,7 @@ To push changes to remote:
 Log in page was the tricky part of the exercise, as I was getting a 401 error that broke the test. Even adding commands to ignore the    
 error in Cypress, I got that error. It seems that switching to Edge browser make it work. 
 
-# Regression testing after finished the code
+# Regression testing after finishing the code
 
 ## Cypress cloud
 
